@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Connect | Professional Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f3f2ef;
+            --bg-card: #ffffff;
+            --text-primary: #000000e6;
+            --text-secondary: #00000099;
+            --accent: #0a66c2;
+            --border: #e0dfdc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding-top: 52px;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            height: 52px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            max-width: 1128px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .search-bar {
+            background-color: #eef3f8;
+            border: none;
+            border-radius: 4px;
+            padding: 0 8px 0 40px;
+            height: 34px;
+            width: 280px;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            margin-left: auto;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--text-primary);
+        }
+
+        .container {
+            max-width: 1128px;
+            margin: 24px auto;
+            display: grid;
+            grid-template-columns: 225px 555px 300px;
+            gap: 24px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        /* Profile Sidebar */
+        .profile-card {
+            text-align: center;
+        }
+
+        .profile-bg {
+            height: 56px;
+            background: linear-gradient(135deg, #a0b4b7, #cbd5e1);
+        }
+
+        .profile-photo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+            margin: -38px auto 12px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 24px;
+        }
+
+        .profile-info {
+            padding: 0 12px 16px;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .profile-headline {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Post Creation */
+        .create-post {
+            padding: 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .create-post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+        }
+
+        .create-post-input {
+            flex-grow: 1;
+            border: 1px solid var(--border);
+            border-radius: 35px;
+            padding: 14px 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .create-post-input:hover {
+            background-color: #0000000a;
+        }
+
+        /* Feed Posts */
+        .post {
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .post-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .post-author:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .post-headline {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .post-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .post-content {
+            font-size: 14px;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            margin-bottom: 16px;
+        }
+
+        .post-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .post-content a:hover {
+            text-decoration: underline;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 8px;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 8px;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .action-button:hover {
+            background-color: #0000000a;
+        }
+
+        /* Right Sidebar */
+        .trending-card {
+            padding: 16px;
+        }
+
+        .trending-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .trending-item {
+            margin-bottom: 12px;
+        }
+
+        .trending-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .trending-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Utilities */
+        .color-1 { background-color: #3b82f6; }
+        .color-2 { background-color: #ef4444; }
+        .color-3 { background-color: #10b981; }
+        .color-4 { background-color: #f59e0b; }
+        .color-5 { background-color: #8b5cf6; }
+        .color-6 { background-color: #ec4899; }
+        .color-7 { background-color: #14b8a6; }
+        .color-8 { background-color: #6366f1; }
+
+        @media (max-width: 1100px) {
+            .container {
+                grid-template-columns: 225px 1fr;
+            }
+            .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .left-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">TravelConnect</a>
+            <input type="text" class="search-bar" placeholder="Search for people, posts, or destinations...">
+            <div class="nav-links">
+                <div class="nav-item active">Home</div>
+                <div class="nav-item">Network</div>
+                <div class="nav-item">Jobs</div>
+                <div class="nav-item">Messaging</div>
+                <div class="nav-item">Notifications</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="left-sidebar">
+            <div class="card profile-card">
+                <div class="profile-bg"></div>
+                <div class="profile-photo">AI</div>
+                <div class="profile-info">
+                    <div class="profile-name">AI Agent Scraper</div>
+                    <div class="profile-headline">Automated Outreach & Lead Qualification System</div>
+                </div>
+            </div>
+
+            <div class="card trending-card">
+                <h2>Groups You Might Like</h2>
+                <div class="trending-item">
+                    <div class="trending-title">Sri Lanka Tourism Forum</div>
+                    <div class="trending-meta">45,219 members</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-title">Expats in Seychelles</div>
+                    <div class="trending-meta">12,044 members</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-title">Madagascar Corporate Travel</div>
+                    <div class="trending-meta">3,892 members</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Feed -->
+        <div class="main-feed">
+            
+            <div class="card create-post">
+                <div class="create-post-avatar"></div>
+                <div class="create-post-input">Start a post about your travel plans...</div>
+            </div>
+
+            <!-- Feed Posts (For the AI to scrape) -->
+
+            <!-- Post 1: High Intent (Corporate - Sri Lanka) -->
+            <div class="card post" data-post-id="101">
+                <div class="post-header">
+                    <div class="post-avatar color-1">MS</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Mark Spencer</a>
+                        <div class="post-headline">VP of Global Operations at Nexus Innovations</div>
+                        <div class="post-time">2h • Edited</div>
+                    </div>
+                </div>
+                <div class="post-content">My team is looking to organize our annual leadership summit in <b>Sri Lanka</b> this coming November. We need premium venues and reliable logistics for 30 executives. 
+
+Can anyone recommend a high-end local DMC or corporate travel partner? Budget is around $50k. Please DM me or email me directly at mark.s@nexusinnovations.com.</div>
+                <div class="post-stats">
+                    <span>👍 45</span>
+                    <span>12 comments • 3 reposts</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 2: High Intent (Leisure - Seychelles) -->
+            <div class="card post" data-post-id="102">
+                <div class="post-header">
+                    <div class="post-avatar color-2">ER</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Elena Rostova</a>
+                        <div class="post-headline">Founder at Rostova Wealth Management</div>
+                        <div class="post-time">5h</div>
+                    </div>
+                </div>
+                <div class="post-content">My husband and I are celebrating our 10th anniversary in <b>Seychelles</b> next month! 🏖️ We are currently planning the itinerary. 
+
+Does anyone know of any exclusive private villas we can rent? We are looking to spend around $20k for a week of pure luxury and privacy. Need recommendations ASAP to lock in the booking! Contact me at elena@rostovawealth.uk if you have connections.</div>
+                <div class="post-stats">
+                    <span>❤️ 112</span>
+                    <span>34 comments • 1 repost</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 3: Low Intent (Madagascar) -->
+            <div class="card post" data-post-id="103">
+                <div class="post-header">
+                    <div class="post-avatar color-3">JD</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">James Dawson</a>
+                        <div class="post-headline">Software Engineer at TechFlow</div>
+                        <div class="post-time">8h</div>
+                    </div>
+                </div>
+                <div class="post-content">Just watched an incredible documentary about the diverse wildlife and lemurs in <b>Madagascar</b>. Nature is so amazing. I'd absolutely love to visit there someday when I have the time! 🌍🐒</div>
+                <div class="post-stats">
+                    <span>👍 89</span>
+                    <span>5 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 4: High Intent (Corporate - Madagascar) -->
+            <div class="card post" data-post-id="104">
+                <div class="post-header">
+                    <div class="post-avatar color-4">PK</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Pauline Kruger</a>
+                        <div class="post-headline">Procurement Director at African Minerals Co.</div>
+                        <div class="post-time">12h</div>
+                    </div>
+                </div>
+                <div class="post-content">We are expanding our mining operations and need to set up a semi-permanent corporate travel route between Johannesburg and Antananarivo, <b>Madagascar</b>. 
+
+I'm currently sourcing vendors who handle corporate flight charters and long-term executive accommodation there. If you provide these B2B services, please reach out to me at procurement@mineralsco.za to discuss a contract.</div>
+                <div class="post-stats">
+                    <span>👍 24</span>
+                    <span>8 comments • 2 reposts</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 5: Medium Intent (Leisure - Sri Lanka) -->
+            <div class="card post" data-post-id="105">
+                <div class="post-header">
+                    <div class="post-avatar color-5">SC</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Sarah Chen</a>
+                        <div class="post-headline">Marketing Consultant</div>
+                        <div class="post-time">1d</div>
+                    </div>
+                </div>
+                <div class="post-content">Looking for an itinerary for a 2-week trip to <b>Sri Lanka</b>. I'm mostly interested in culture, tea plantations, and wildlife safaris. Are there any good local tour operators you'd recommend? Planning to go early next year. ✈️🐘</div>
+                <div class="post-stats">
+                    <span>👍 67</span>
+                    <span>22 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 6: Low Intent (Seychelles) -->
+            <div class="card post" data-post-id="106">
+                <div class="post-header">
+                    <div class="post-avatar color-6">TR</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Tom Richards</a>
+                        <div class="post-headline">Freelance Photographer</div>
+                        <div class="post-time">1d</div>
+                    </div>
+                </div>
+                <div class="post-content">The beaches in <b>Seychelles</b> are arguably the most beautiful in the world. The granite boulders against the turquoise water is just a photographer's dream. Change my mind! 📸🌊</div>
+                <div class="post-stats">
+                    <span>❤️ 342</span>
+                    <span>45 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 7: High Intent (Leisure - Madagascar) -->
+            <div class="card post" data-post-id="107">
+                <div class="post-header">
+                    <div class="post-avatar color-7">JL</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Jean-Luc Dubois</a>
+                        <div class="post-headline">Director at Cinematic Productions Paris</div>
+                        <div class="post-time">2d</div>
+                    </div>
+                </div>
+                <div class="post-content">I'm currently organizing a high-end photography expedition to <b>Madagascar</b> for this coming October. 
+
+I urgently need a reliable local fixer who can arrange private transport, luxury lodge accommodations, and exclusive access to nature reserves. Budget is highly flexible, but I expect premium, white-glove service. Contact me on my website or via DM here.</div>
+                <div class="post-stats">
+                    <span>👍 56</span>
+                    <span>18 comments • 5 reposts</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 8: Medium Intent (Sri Lanka) -->
+            <div class="card post" data-post-id="108">
+                <div class="post-header">
+                    <div class="post-avatar color-8">AK</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Arjun Kapoor</a>
+                        <div class="post-headline">Financial Analyst</div>
+                        <div class="post-time">2d</div>
+                    </div>
+                </div>
+                <div class="post-content">Has anyone flown business class to Colombo, <b>Sri Lanka</b> recently? I'm trying to figure out which airline has the best layover options and lounge access from London. Asking for a potential trip I'm planning. Thoughts? ✈️</div>
+                <div class="post-stats">
+                    <span>👍 41</span>
+                    <span>15 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 9: High Intent (Corporate - Seychelles) -->
+            <div class="card post" data-post-id="109">
+                <div class="post-header">
+                    <div class="post-avatar color-1">HW</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Helen Williams</a>
+                        <div class="post-headline">Chief Strategy Officer at FinTech Innovations</div>
+                        <div class="post-time">3d</div>
+                    </div>
+                </div>
+                <div class="post-content">Our executive team (15 people) is looking for a venue for a 4-day strategy offsite in <b>Seychelles</b> early next year. 
+
+We need a 5-star resort that can handle corporate meetings securely and provide private dining experiences. Please contact me at h.williams@fintech.io with proposals.</div>
+                <div class="post-stats">
+                    <span>👍 52</span>
+                    <span>9 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 10: Medium Intent (Leisure - Madagascar) -->
+            <div class="card post" data-post-id="110">
+                <div class="post-header">
+                    <div class="post-avatar color-2">MB</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Michael Bates</a>
+                        <div class="post-headline">Architect at DesignBuild</div>
+                        <div class="post-time">3d</div>
+                    </div>
+                </div>
+                <div class="post-content">What's the best time of year to visit <b>Madagascar</b>? My wife and I are hoping to do a 10-day tour to see the Avenue of the Baobabs and the national parks. Any advice from folks who have been there? 🌳</div>
+                <div class="post-stats">
+                    <span>👍 28</span>
+                    <span>14 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 11: Low Intent (Sri Lanka) -->
+            <div class="card post" data-post-id="111">
+                <div class="post-header">
+                    <div class="post-avatar color-3">ST</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Samantha Taylor</a>
+                        <div class="post-headline">Content Creator</div>
+                        <div class="post-time">4d</div>
+                    </div>
+                </div>
+                <div class="post-content"><b>Sri Lankan</b> food is absolutely amazing! Just had the best Kottu Roti at a local spot here in London. I definitely need to visit the country someday just to eat my way through it! 🍛🤤</div>
+                <div class="post-stats">
+                    <span>❤️ 156</span>
+                    <span>23 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 12: High Intent (Leisure - Sri Lanka) -->
+            <div class="card post" data-post-id="112">
+                <div class="post-header">
+                    <div class="post-avatar color-4">DM</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">David Miller</a>
+                        <div class="post-headline">Partner at Global Wealth Management</div>
+                        <div class="post-time">4d</div>
+                    </div>
+                </div>
+                <div class="post-content">I am looking to book a private, customized luxury tour of <b>Sri Lanka</b> for my family of 6 this coming December. We want a private driver, 5-star boutique hotels throughout the trip, and a perfect mix of cultural sites and beach relaxation.
+
+Budget is around $30k for the ground arrangements. Are there any high-end travel agents out there who specialize in this? DM me or email david.m@wealth-partners.com.</div>
+                <div class="post-stats">
+                    <span>👍 48</span>
+                    <span>19 comments • 2 reposts</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 13: High Intent (Corporate - Madagascar) -->
+            <div class="card post" data-post-id="113">
+                <div class="post-header">
+                    <div class="post-avatar color-5">RL</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Robert Lin</a>
+                        <div class="post-headline">Head of Infrastructure Projects at BuildCorp Europe</div>
+                        <div class="post-time">5d</div>
+                    </div>
+                </div>
+                <div class="post-content">Does anyone have a reliable local contact for setting up corporate housing, secure transport, and logistics for an engineering team in <b>Madagascar</b>? 
+
+We will have a rotating team of 20 engineers every 3 months for a major new infrastructure project starting early next year. Please reach out directly to procurement@buildcorp.eu if your agency can handle long-term B2B logistics.</div>
+                <div class="post-stats">
+                    <span>👍 76</span>
+                    <span>31 comments • 8 reposts</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+            <!-- Post 14: Low Intent (Seychelles) -->
+            <div class="card post" data-post-id="114">
+                <div class="post-header">
+                    <div class="post-avatar color-6">CW</div>
+                    <div class="post-meta">
+                        <a href="#" class="post-author">Chloe White</a>
+                        <div class="post-headline">Event Planner</div>
+                        <div class="post-time">1w</div>
+                    </div>
+                </div>
+                <div class="post-content">Throwback to our amazing honeymoon in <b>Seychelles</b> last year! The sunsets there are unmatched. Missing those views today. 🌅✈️</div>
+                <div class="post-stats">
+                    <span>❤️ 215</span>
+                    <span>11 comments</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-button">Like</button>
+                    <button class="action-button">Comment</button>
+                    <button class="action-button">Repost</button>
+                    <button class="action-button">Send</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <div class="card trending-card">
+                <h2>Trending Topics</h2>
+                <div class="trending-item">
+                    <div class="trending-title">#CorporateTravel</div>
+                    <div class="trending-meta">15,340 posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-title">#SriLankaRetreats</div>
+                    <div class="trending-meta">2,104 posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-title">#LuxurySeychelles</div>
+                    <div class="trending-meta">8,932 posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-title">#MadagascarExpeditions</div>
+                    <div class="trending-meta">1,450 posts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
